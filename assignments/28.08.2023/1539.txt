@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) {
+        int n = arr.size();
+        int lastelement = arr[n-1]+k;
+        vector<int>nums(lastelement);
+
+        for(int i = 0; i < lastelement; i++){
+            nums[i] = i + 1;
+        }
+        
+        int j = 0;
+        int x = 0;
+        vector<int>missing;
+
+        while(j < nums.size() && x < arr.size()){
+            if(nums[j] == arr[x]){
+                j++;
+                x++;
+            }
+            else if(nums[j] != arr[x]){
+                missing.push_back(nums[j]);
+                j++;
+            }
+        }
+        
+        while(j < nums.size()){
+            missing.push_back(nums[j]);
+            j++;
+        }
+        return missing[k-1];
+
+        
+    }
+};
