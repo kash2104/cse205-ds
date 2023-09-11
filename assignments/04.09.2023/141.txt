@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        //list is empty
+        if(head == NULL){
+            return false;
+        }
+        //list has only one element
+        if(head -> next == NULL){
+            return false;
+        }
+        if(head -> next == head){
+            return true;
+        }
+        ListNode* slow = head;
+        ListNode* fast = head -> next;
+
+        while(fast!= NULL){
+            fast = fast -> next;
+            if(fast != NULL){
+                fast = fast -> next;
+            }
+
+            slow = slow -> next;
+
+            if(slow == fast){
+                return true;
+            }
+        }
+        return false;
+    }
+};

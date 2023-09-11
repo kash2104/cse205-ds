@@ -1,0 +1,45 @@
+class Solution {
+    public:
+    int getLength(ListNode* head){
+        int len = 0;
+        if(head == NULL){
+            return len;
+        }
+        ListNode* temp = head;
+        while(temp != NULL){
+            len++;
+            temp = temp -> next;
+        }
+        return len;
+    }
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if(head == NULL || head -> next == NULL){
+            return head;
+        }
+
+        //first window
+        int len = getLength(head);
+        ListNode* temp = head;
+        ListNode* prev = NULL;
+        ListNode* forward = NULL;
+        int count = k;
+        if(len >= k){
+            //reverse the first k nodes
+            for(int i = k; i > 0; i--){
+                forward = temp -> next;
+                temp -> next = prev;
+                prev = temp;
+                temp = forward;
+            }
+        }
+        else{
+            return head;
+        }
+       
+        head -> next = reverseKGroup(temp, k);
+
+        return prev;
+        
+    }
+};
