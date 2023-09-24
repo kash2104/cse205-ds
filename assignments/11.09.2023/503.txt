@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        vector<int>res(2*nums.size(), 0);
+        vector<int>ans(res.size());
+
+        for(int i = 0; i < nums.size(); i++){
+            res[i] = nums[i];
+        }
+        int j = 0;
+        for(int i = nums.size(); i < res.size(); i++){
+            res[i] = nums[j];
+            j++;
+        }
+
+        stack<int>s;
+        s.push(-1);
+
+        for(int i = res.size() - 1; i >= 0; i--){
+            int curr = res[i];
+            while(!s.empty() && s.top() <= curr){
+                s.pop();
+            }
+
+            if(s.empty()){
+               ans[i] = -1;
+               s.push(curr); 
+            }
+
+            if(s.top() > curr){
+                ans[i] = s.top();
+                s.push(curr);
+            }
+        }
+
+        vector<int>finalans(nums.size());
+        for(int i = 0; i < nums.size(); i++){
+            finalans[i] = ans[i];
+        }
+
+        return finalans;
+        
+    }
+};
