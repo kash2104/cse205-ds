@@ -1,0 +1,38 @@
+class MyStack {
+    queue<int>q;
+public:
+    MyStack() {
+        
+    }
+    
+    void push(int x) {
+        q.push(x);
+        int sz = q.size();
+        for(int i = 1; i < sz; i++){
+            int val = q.front();
+            q.pop();
+            q.push(val);
+        }
+    }
+    
+    int pop() {
+        if(q.empty()){
+            return -1;
+        }
+        int val = q.front();
+        q.pop();
+        return val;
+    }
+    
+    int top() {
+        if(q.empty()){
+            return -1;
+        }
+        int val = q.front();
+        return val;
+    }
+    
+    bool empty() {
+        return q.empty();
+    }
+};
