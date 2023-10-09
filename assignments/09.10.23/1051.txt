@@ -1,0 +1,45 @@
+class Solution {
+    public:
+    int findPartition(vector<int>& heights,int low, int high){
+        int pivot = heights[low];
+        int i = low;
+        int j = high;
+
+        while(i < j){
+            while(i <= high-1 && heights[i] <= pivot){
+                i++;
+            }
+            while(j >= low + 1 && heights[j] > pivot){
+                j--;
+            }
+            if(i < j){
+                swap(heights[i], heights[j]);
+            }
+        }
+        swap(heights[low], heights[j]);
+
+        return j;
+    }
+    void quicksort(vector<int>& heights,int low, int high){
+        if(low >= high){
+            return;
+        }
+        int ind = findPartition(heights,low,high);
+
+        quicksort(heights, low, ind -1);
+        quicksort(heights, ind+1, high);
+    }
+public:
+    int heightChecker(vector<int>& heights) {
+        vector<int>expected = heights;
+        int size = heights.size() - 1;
+        quicksort(expected,0,size);
+        int count = 0;
+        for(int i = 0; i < heights.size(); i++){
+            if(heights[i] != expected[i]){
+                count++;
+            }
+        }
+        return count;
+    }
+};
