@@ -1,0 +1,56 @@
+class MyHashMap {
+    vector<pair<int,int>>v;
+    int it;
+public:
+    MyHashMap() {
+        it = 0;
+    }
+    
+    void put(int key, int value) {
+        for(it= 0; it < v.size(); it++){
+            pair<int,int>p = v[it];
+            if(p.first == key){
+                break;
+            }
+        }
+        if(it == v.size()){
+            pair<int,int>p = make_pair(key,value);
+            v.push_back(p);
+        }
+        else{
+            v[it].second = value;
+        }
+    }
+    
+    int get(int key) {
+        for(it= 0; it < v.size(); it++){
+            pair<int,int>p = v[it];
+            if(p.first == key){
+                break;
+            }
+        }
+
+        if(it == v.size()){
+            return -1;
+        }
+        else{
+            return v[it].second;
+        }
+    }
+    
+    void remove(int key) {
+        for(it= 0; it < v.size(); it++){
+            pair<int,int>p = v[it];
+            if(p.first == key){
+                break;
+            }
+        }
+
+        if(it == v.size()){
+            return;
+        }
+        else{
+            v.erase(v.begin() + it);
+        }
+    }
+};

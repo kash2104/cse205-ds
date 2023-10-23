@@ -1,0 +1,50 @@
+class MyHashSet {
+    vector<int>v;
+    int it;
+public:
+    MyHashSet() {
+        it = 0;
+    }
+    
+    void add(int key) {
+        for(it = 0; it < v.size(); it++){
+            if(v[it] == key){
+                break;
+            }
+        }
+        if(it == v.size()){
+            v.push_back(key);
+        }
+        else{
+            return;
+        }
+    }
+    
+    void remove(int key) {
+        for(it = 0; it < v.size(); it++){
+            if(v[it] == key){
+                break;
+            }
+        }
+        if(it == v.size()){
+            return;
+        }
+        else{
+            v.erase(v.begin() + it);
+        }
+    }
+    
+    bool contains(int key) {
+        for(it = 0; it < v.size(); it++){
+            if(v[it] == key){
+                break;
+            }
+        }
+        if(it == v.size()){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+};
