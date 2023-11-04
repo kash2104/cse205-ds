@@ -1,0 +1,33 @@
+class Solution {
+    pair<int,int>solve(TreeNode* root){
+        //base case
+        if(root == NULL){
+            pair<int,int>p = make_pair(0,0);
+            return p;
+        }
+
+        pair<int,int>leftans = solve(root -> left);
+        pair<int,int>rightans = solve(root -> right);
+
+        int dleft = leftans.first;
+        int dright = rightans.first;
+        int height = leftans.second + rightans.second;
+
+        pair<int,int>ans;
+
+        ans.first = max(height, max(dleft, dright));
+        ans.second = max(leftans.second, rightans.second) + 1;
+
+        return ans;
+    }
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+        if(root == NULL){
+            return 0;
+        }
+        
+        pair<int,int>ans = solve(root);
+
+        return ans.first;
+    }
+};

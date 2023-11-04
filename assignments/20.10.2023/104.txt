@@ -1,0 +1,17 @@
+class Solution {
+    int solve(TreeNode* root){
+        //base case
+        if(root == NULL){
+            return 0;
+        }
+
+        int leftans = solve(root -> left);
+        int rightans = solve(root -> right);
+
+        return max(leftans, rightans) + 1;
+    }
+public:
+    int maxDepth(TreeNode* root) {
+        return solve(root);
+    }
+};

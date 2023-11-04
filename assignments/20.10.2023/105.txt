@@ -1,0 +1,39 @@
+class Solution {
+    public:
+    void createMapping(vector<int>& inorder, map<int,int>&m){
+
+        for(int i = 0; i < inorder.size(); i++){
+            m[inorder[i]] = i;
+        }
+    }
+
+    TreeNode* solve(vector<int>& preorder, vector<int>& inorder, map<int,int>&m,int& preorderindex, int inorderstart, int inorderend){
+        //base case
+        if(preorderindex >= preorder.size() || inorderstart > inorderend){
+            return NULL;
+        }
+
+        int preorderele = preorder[preorderindex];
+        preorderindex += 1;
+
+        TreeNode* root = new TreeNode(preorderele);
+
+        int inorderposition = m[preorderele];
+
+        root -> left = solve(preorder, inorder, m, preorderindex, inorderstart, inorderposition-1);
+
+        root -> right = solve(preorder, inorder, m, preorderindex, inorderposition+1, inorderend);
+
+        return root;
+    }
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        
+        map<int,int>m;
+        createMapping(inorder, m);
+
+        int preorderindex = 0;
+
+        return solve(preorder, inorder, m, preorderindex, 0, inorder.size());
+    }
+};

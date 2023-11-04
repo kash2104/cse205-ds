@@ -1,0 +1,34 @@
+class Solution {
+    int solve(TreeNode* root, int& ans){
+        //base case
+        if(root == NULL){
+            return 0;
+        }
+
+        int leftans = solve(root -> left, ans);
+        int rightans = solve(root -> right, ans);
+
+        //take care of negative number
+        int lans = max(0, leftans);
+        int rans = max(0, rightans);
+
+        ans = max(ans, lans + rans + root -> val);
+
+        return max(lans, rans) + root -> val;
+    }
+public:
+    int maxPathSum(TreeNode* root) {
+        if(root == NULL){
+            return 0;
+        }
+
+        if(root -> left == NULL && root -> right == NULL){
+            return root -> val;
+        }
+
+        int ans = INT_MIN;
+        solve(root, ans);
+
+        return ans;
+    }
+};
