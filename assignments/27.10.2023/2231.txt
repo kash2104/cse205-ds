@@ -1,0 +1,67 @@
+class Solution {
+    void findDigits(int num, vector<int>& v,priority_queue<int>&even,priority_queue<int>& odd){
+        while(num != 0){
+            int rem = num % 10;
+            num = num / 10;
+
+            if(rem % 2 == 0){
+                even.push(rem);
+            }
+            else{
+                odd.push(rem);
+            }
+
+            v.push_back(rem);
+        }
+
+        reverse(v.begin(), v.end());
+    }
+
+    void convertToNumber(vector<int>& ans, int& sum){
+        int exp = 0;
+        for(int i = ans.size()-1; i >= 0; i--){
+            int ele = ans[i];
+
+            sum += ele * pow(10,exp);
+            exp++;
+        }
+    }
+public:
+    int largestInteger(int num) {
+        vector<int>v;
+
+        priority_queue<int>even;
+        priority_queue<int>odd;
+
+        findDigits(num, v, even, odd);
+
+        vector<int>ans;
+        int index = 0;
+        while(!even.empty() && !odd.empty() && index < v.size()){
+            if(v[index] % 2 == 0){
+                ans.push_back(even.top());
+                even.pop();
+            }
+            else{
+                ans.push_back(odd.top());
+                odd.pop();
+            }
+            index++;
+        }
+
+        while(!even.empty() && index < v.size()){
+            ans.push_back(even.top());
+            even.pop();
+        }
+
+         while(!odd.empty() && index < v.size()){
+            ans.push_back(odd.top());
+            odd.pop();
+        }
+
+        int sum = 0;
+        convertToNumber(ans, sum);
+
+        return sum;
+    }
+};
