@@ -1,0 +1,39 @@
+class Solution {
+    public:
+    void inorder(TreeNode* root, vector<int>& nums){
+        //base case
+        if(root == NULL){
+            return;
+        }
+
+        inorder(root -> left, nums);
+        nums.push_back(root -> val);
+        inorder(root -> right, nums);
+    }
+
+    void isValid(TreeNode* root, vector<int>& nums, int& index){
+        //base case
+        if(root == NULL){
+            return;
+        }
+
+        isValid(root -> left, nums, index);
+
+        if(root -> val != nums[index]){
+            root -> val = nums[index];
+        }
+        index++;
+
+        isValid(root -> right, nums, index);
+    }
+public:
+    void recoverTree(TreeNode* root) {
+        vector<int>nums;
+        inorder(root, nums);
+
+        sort(nums.begin(), nums.end());
+
+        int index = 0;
+        isValid(root, nums, index);
+    }
+};

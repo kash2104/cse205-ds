@@ -1,0 +1,30 @@
+class BSTIterator {
+    public:
+    stack<TreeNode*>s;
+
+    void leftinorder(TreeNode* root){
+        while(root != NULL){
+            s.push(root);
+            root = root -> left;
+        }
+    }
+
+public:
+    BSTIterator(TreeNode* root) {
+        leftinorder(root);
+    }
+    
+    int next() {
+        TreeNode* temp = s.top();
+        s.pop();
+        leftinorder(temp -> right);
+        return temp -> val;
+    }
+    
+    bool hasNext() {
+        if(!s.empty()){
+            return true;
+        }
+        return false;
+    }
+};

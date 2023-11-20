@@ -1,0 +1,39 @@
+class Solution {
+    void inorder(TreeNode* root, vector<int>& nums){
+        //base case
+        if(root == NULL){
+            return;
+        }
+
+        inorder(root -> left, nums);
+        nums.push_back(root -> val);
+        inorder(root -> right, nums);
+    }
+
+    TreeNode* solve(int start, int end, vector<int>& nums){
+        //base case
+        if(start > end){
+            return NULL;
+        }
+
+        int mid = (start+end)/2;
+        TreeNode* root = new TreeNode(nums[mid]);
+
+        root -> left = solve(start, mid-1, nums);
+        root -> right = solve(mid+1, end, nums);
+
+        return root;
+    }
+public:
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        vector<int>nums;
+        inorder(root, nums);
+
+        nums.push_back(val);
+        sort(nums.begin(), nums.end());
+
+        int start = 0;
+        int end = nums.size()-1;
+        return solve(start,end,nums);
+    }
+};

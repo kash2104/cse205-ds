@@ -1,0 +1,29 @@
+class Solution {
+    int solve(TreeNode* root, int& count, int k){
+        //base case
+        if(root == NULL){
+            return -1;
+        }
+
+        int leftans = solve(root -> left, count, k);
+
+        if(leftans != -1){
+            return leftans;
+        }
+
+        count += 1;
+
+        if(count == k){
+            return root -> val;
+        }
+
+        int rightans = solve(root -> right, count, k);
+
+        return rightans;
+    }
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        int count = 0;
+        return solve(root, count, k);
+    }
+};
